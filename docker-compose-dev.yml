@@ -57,3 +57,5 @@ services:
       - POSTGRES_PASSWORD=pass
     volumes:
       - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d:ro
+    depends_on:
+      - kafka1

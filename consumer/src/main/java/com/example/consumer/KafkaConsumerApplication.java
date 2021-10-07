@@ -19,39 +19,48 @@ import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.util.concurrent.ListenableFutureCallback;
 
 @SpringBootApplication
+@RequiredArgsConstructor
 public class KafkaConsumerApplication {
-  private final Log logger = LogFactory.getLog(this.getClass());
-  private KafkaTemplate<String, Payment> template;
+    private final Log logger = LogFactory.getLog(this.getClass());
+    private final String TOTOPIC = "other.payments";
+    private final String TOPIC = "payments";
+    private final String CONSUMER = "consumer";
+    private final String KEY = "consumer.payment";
+    private final KafkaTemplate<String, Payment> template;
 
-  public static void main(String[] args) {
-    SpringApplication.run(KafkaConsumerApplication.class, args);
-  }
+    public static void main(String[] args) {
+        SpringApplication.run(KafkaConsumerApplication.class, args);
+    }
 
-  @KafkaListener(groupId = "consumer", topics = "payments")
-  public void listen(Payment message, ConsumerRecord<String, Payment> record, Acknowledgment acknowledgment) {
-    logger.info(message);
-    acknowledgment.acknowledge();
-    send(message);
-  }
+    /**
+     * Collect messages from topic "payments" and send to other topic
+     *
+     * @param message current message from topic
+     */
+    @KafkaListener(groupId = CONSUMER, topics = TOPIC)
+    public void listen(Payment message) {
+        logger.info(message);
+        send(message);
+    }
 
-  public void send(Payment payment) {
-    final ListenableFuture<SendResult<String, Payment>> future = template.send(
-            new ProducerRecord<>("other.payments", "consumer.payment", payment));
-    future.addCallback(new ListenableFutureCallback<>() {
-      @Override
-      public void onFailure(@NonNull Throwable e) {
-        e.printStackTrace();
-      }
+    /**
+     * Send the payment to topic "other.payments"
+     *
+     * @param payment which we should to send
+     */
+    public void send(Payment payment) {
+        final ListenableFuture<SendResult<String, Payment>> future = template.send(
+                new ProducerRecord<>(TOTOPIC, KEY, payment));
+        future.addCallback(new ListenableFutureCallback<>() {
+            @Override
+            public void onFailure(@NonNull Throwable e) {
+                e.printStackTrace();
+            }
 
-      @Override
-      public void onSuccess(SendResult<String, Payment> result) {
-        logger.info(result);
-      }
-    });
-  }
-
-  @Bean // Kafka Admin
-  public NewTopic newPaymentsTopic() {
-    return new NewTopic("other.payments", 3, (short) 2);
-  }
+            @Override
+            public void onSuccess(SendResult<String, Payment> result) {
+                logger.info(result);
+            }
+        });
+    }
 }

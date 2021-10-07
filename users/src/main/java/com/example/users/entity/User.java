@@ -1,12 +1,9 @@
-package com.example.data.entity;
+package com.example.users.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
+import lombok.*;
 import javax.persistence.*;
+
 
 @Entity
 @Table(name = "users")
@@ -17,6 +14,7 @@ import javax.persistence.*;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
-    String username;
+    private long id;
+    @Column(nullable = false, columnDefinition = "TEXT")
+    private String username;
 }

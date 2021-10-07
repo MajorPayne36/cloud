@@ -1,18 +1,13 @@
-INSERT INTO users(id, username, password, role)
-VALUES (1, 'admin', '$argon2id$v=19$m=4096,t=3,p=1$CjM/3pdG9sYDzxGFDbesMA$HA1Fm8y23U9QucCFmq1hynPzyCsMfSNKpEqyZVif/og',
-        'ROLE_ADMIN'),
-       (2, 'student',
-        '$argon2id$v=19$m=4096,t=3,p=1$gCAC+zI1HRM5IRKJc8HhGw$RadiUVwSqt6m7icr6+Cp67Jh8Sc+YRs+zJ9xw2nYh6M', '');
+INSERT INTO users(id, username)
+VALUES (1, 'admin'),
+       (2, 'user2'),
+       (3, 'user3'),
+       (4, 'user4');
 
-ALTER SEQUENCE users_id_seq RESTART WITH 3;
+INSERT INTO payments(id, "senderId", amount, comment)
+VALUES (1, 1, 10, 50000),
+       (2, 2, 20, 90000),
+       (3, 3, 30, 90000),
+       (4, 4, 40, 90000),
+       (5, 3, 50, 90000);
 
-INSERT INTO tokens(token, "userId")
-VALUES ('6NSb+2kcdKF44ut4iBu+dm6YLu6pakWapvxHtxqaPgMr5iRhox/HlhBerAZMILPjwnRtXms+zDfVTLCsao9nuw==', 1),
-       ('7test+2kcdKF44ut4iBu+dm6YLu6pakWapvxHtxqaPgMr5iRhox/HlhBerAZMILPjwnRtXms+zDfVTLCsao9nuw==', 2);
-
-
-INSERT INTO cards(id, "ownerId", number, balance)
-VALUES (1, 1, '8888 8888', 50000),
-       (2, 2, '9999 9999', 90000);
-
-ALTER SEQUENCE cards_id_seq RESTART WITH 3;

@@ -11,3 +11,20 @@ http://localhost:9000/aggregator/value
 http://localhost:9000/aggregator/value
 Authorization: top-secret
 
+## ~~~~~~~~~~ HOMEWORK ~~~~~~~~~~~~
+### Get all users
+GET http://localhost:9000/aggregator/users
+
+### Get payments stats
+GET http://localhost:9000/aggregator/payments
+
+### Register new payment
+POST http://localhost:9000/producer/payments
+Content-Type: application/json
+
+{
+  "type" : "payment",
+  "senderId": "3",
+  "amount": "9090",
+  "comment": "any comment"
+}
