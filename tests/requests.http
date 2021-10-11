@@ -13,18 +13,18 @@ Authorization: top-secret
 
 ## ~~~~~~~~~~ HOMEWORK ~~~~~~~~~~~~
 ### Get all users
-GET http://localhost:9000/aggregator/users
+GET http://localhost:9000/aggregator/api/users
 
 ### Get payments stats
-GET http://localhost:9000/aggregator/payments
+GET http://localhost:9000/aggregator/api/payments
 
 ### Register new payment
-POST http://localhost:9000/producer/payments
+POST http://localhost:9000/producer/api/payments
 Content-Type: application/json
 
 {
   "type" : "payment",
   "senderId": "2",
   "amount": "99787",
-  "comment": "ala bala nitsa"
+  "comment": "Xodavit Hello"
 }

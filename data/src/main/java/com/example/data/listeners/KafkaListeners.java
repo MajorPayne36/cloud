@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,9 +16,9 @@ public class KafkaListeners {
     private final PaymentRepository repository;
 
     @KafkaListener(groupId = "data.consumers", topics = "other.payments")
-    public void listen(Payment message) {
+    public void listen(Payment message, Acknowledgment acknowledgment) {
         logger.info(message);
-//        acknowledgment.acknowledge();
         repository.save(message);
+        acknowledgment.acknowledge();
     }
 }

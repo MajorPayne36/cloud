@@ -6,6 +6,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.kafka.support.SendResult;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
@@ -28,9 +29,10 @@ public class KafkaListener {
      * @param message current message from topic
      */
     @org.springframework.kafka.annotation.KafkaListener(groupId = CONSUMER, topics = TOPIC)
-    public void listen(Payment message) {
+    public void listen(Payment message, Acknowledgment acknowledgment) {
         logger.info(message);
         send(message);
+        acknowledgment.acknowledge();
     }
 
     /**
