@@ -24,7 +24,7 @@ Content-Type: application/json
 
 {
   "type" : "payment",
-  "senderId": "3",
-  "amount": "9090",
-  "comment": "any comment"
+  "senderId": "2",
+  "amount": "99787",
+  "comment": "ala bala nitsa"
 }

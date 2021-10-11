@@ -13,7 +13,7 @@ public class ProducerController {
     private final ProducerService service;
 
     @PostMapping("/payments")
-    public void send(@RequestBody Payment payment) {
-        service.send(payment);
+    public Payment send(@RequestBody Payment payment) {
+        return service.send(payment);
     }
 }

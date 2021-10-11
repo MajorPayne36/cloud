@@ -16,22 +16,23 @@ import org.springframework.util.concurrent.ListenableFutureCallback;
 @Service
 @RequiredArgsConstructor
 public class ProducerService {
-  private final Log logger = LogFactory.getLog(this.getClass());
-  private final KafkaTemplate<String, Payment> template;
+    private final Log logger = LogFactory.getLog(this.getClass());
+    private final KafkaTemplate<String, Payment> template;
 
-  public void send(Payment payment) {
-    final ListenableFuture<SendResult<String, Payment>> future = template.send(
-        new ProducerRecord<>("payments", "ibank", payment));
-    future.addCallback(new ListenableFutureCallback<>() {
-      @Override
-      public void onFailure(@NonNull Throwable e) {
-        e.printStackTrace();
-      }
+    public Payment send(Payment payment) {
+        final ListenableFuture<SendResult<String, Payment>> future = template.send(
+                new ProducerRecord<>("payments", "ibank", payment));
+        future.addCallback(new ListenableFutureCallback<>() {
+            @Override
+            public void onFailure(@NonNull Throwable e) {
+                e.printStackTrace();
+            }
 
-      @Override
-      public void onSuccess(SendResult<String, Payment> result) {
-        logger.info(result);
-      }
-    });
-  }
+            @Override
+            public void onSuccess(SendResult<String, Payment> result) {
+                logger.info(result);
+            }
+        });
+        return payment;
+    }
 }
