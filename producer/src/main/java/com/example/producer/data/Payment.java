@@ -1,6 +1,6 @@
 package com.example.producer.data;
 
-import com.example.producer.validators.CardNumber;
+import com.example.producer.validator.CardNumber;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

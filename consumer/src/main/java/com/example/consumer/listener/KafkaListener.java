@@ -1,4 +1,4 @@
-package com.example.consumer.listeners;
+package com.example.consumer.listener;
 
 import com.example.consumer.data.Payment;
 import lombok.RequiredArgsConstructor;
