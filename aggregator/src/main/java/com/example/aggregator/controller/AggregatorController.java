@@ -19,7 +19,6 @@ import java.util.stream.Collectors;
 @RequestMapping("/api")
 @RequiredArgsConstructor
 public class AggregatorController {
-    private final DiscoveryClient discoveryClient;
     private final DataClient dataClient;
     private final UserClient userClient;
 
