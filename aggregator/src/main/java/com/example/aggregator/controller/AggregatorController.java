@@ -5,6 +5,7 @@ import com.example.aggregator.client.UserClient;
 import com.example.aggregator.dto.PaymentStats;
 import com.example.aggregator.dto.ResponseDto;
 import com.example.aggregator.dto.UserDto;
+import com.example.aggregator.service.AggregatorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +22,7 @@ import java.util.stream.Collectors;
 public class AggregatorController {
     private final DataClient dataClient;
     private final UserClient userClient;
+    private final AggregatorService service;
 
     @GetMapping("/value")
     public ResponseDto value() {
@@ -41,17 +43,7 @@ public class AggregatorController {
         final var users = userClient.getUsers(usersId);
 
         // Concat payments and return
-        return payments.stream().map(p -> PaymentStats
-                .builder()
-                .id(p.getId())
-                .amount(p.getAmount())
-                .comment(p.getComment())
-                .username(
-                        users.stream().
-                                filter(u -> u.getId() == p.getSenderId())
-                                .collect(Collectors.toList())
-                                .get(0).getUsername()
-                ).build()).collect(Collectors.toList());
+        return service.concat(payments, users);
     }
 
     @GetMapping("/users")
