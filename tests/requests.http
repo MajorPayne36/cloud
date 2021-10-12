@@ -25,6 +25,7 @@ Content-Type: application/json
 {
   "type" : "payment",
   "senderId": "3",
+  "cardNumber": "1234567812345678",
   "amount": "1122",
   "comment": "Hello World!"
 }
