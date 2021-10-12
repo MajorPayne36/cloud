@@ -19,6 +19,8 @@ public class Payment implements Payload {
   @Column
   private long senderId;
   @Column
+  private String cardNumber;
+  @Column
   private long amount;
   @Column
   private String comment;
