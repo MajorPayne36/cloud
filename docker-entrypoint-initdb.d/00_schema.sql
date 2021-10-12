@@ -9,10 +9,10 @@ CREATE TABLE users
 CREATE SEQUENCE card_id_seq;
 CREATE TABLE payments
 (
-    id       BIGSERIAL PRIMARY KEY,
-    sender_id BIGINT NOT NULL REFERENCES users,
-    card_number TEXT NOT NULL
-    amount   BIGINT NOT NULL,
-    comment  TEXT   NOT NULL DEFAULT 0
+    id          BIGSERIAL PRIMARY KEY,
+    sender_id   BIGINT NOT NULL REFERENCES users,
+    card_number TEXT   NOT NULL,
+    amount      BIGINT NOT NULL,
+    comment     TEXT   NOT NULL DEFAULT 0
 );
 
