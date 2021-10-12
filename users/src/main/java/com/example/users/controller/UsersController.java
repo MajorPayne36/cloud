@@ -1,5 +1,6 @@
 package com.example.users.controller;
 
+import com.example.users.dto.UserDto;
 import com.example.users.entity.User;
 import com.example.users.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +26,7 @@ public class UsersController {
     }
 
     @PostMapping("/users/list")
-    public List<User> endpoint(@RequestBody LinkedList<Long> usersId) {
+    public List<UserDto> endpoint(@RequestBody LinkedList<Long> usersId) {
         logger.info("users list request");
         // Return users by id collection
         return service.getUsers(usersId);
