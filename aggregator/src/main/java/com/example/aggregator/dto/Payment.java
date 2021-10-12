@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 public class Payment implements Payload {
   private long id;
   private long senderId;
+  private String cardNumber;
   private long amount;
   private String comment;
 }
