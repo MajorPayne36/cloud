@@ -7,14 +7,12 @@ import com.example.aggregator.dto.ResponseDto;
 import com.example.aggregator.dto.UserDto;
 import com.example.aggregator.service.AggregatorService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
@@ -34,10 +32,8 @@ public class AggregatorController {
 
         // Get last 1000 payments from data
         final var payments = dataClient.getList(1000);
-        LinkedList<Long> usersId = new LinkedList<>();
-        payments.forEach(p -> {
-            usersId.add(p.getSenderId());
-        });
+        List<Long> usersId = new LinkedList<>();
+        payments.forEach(p -> usersId.add(p.getSenderId()));
 
         // Get payments senders username from users
         final var users = userClient.getUsers(usersId);

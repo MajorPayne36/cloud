@@ -26,7 +26,7 @@ public class UsersController {
     }
 
     @PostMapping("/users/list")
-    public List<UserDto> endpoint(@RequestBody LinkedList<Long> usersId) {
+    public List<UserDto> endpoint(@RequestBody List<Long> usersId) {
         logger.info("users list request");
         // Return users by id collection
         return service.getUsers(usersId);
