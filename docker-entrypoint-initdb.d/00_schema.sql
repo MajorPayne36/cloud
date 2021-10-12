@@ -11,6 +11,7 @@ CREATE TABLE payments
 (
     id       BIGSERIAL PRIMARY KEY,
     sender_id BIGINT NOT NULL REFERENCES users,
+    card_number TEXT NOT NULL
     amount   BIGINT NOT NULL,
     comment  TEXT   NOT NULL DEFAULT 0
 );
